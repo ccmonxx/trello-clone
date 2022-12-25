@@ -1,5 +1,5 @@
 import React from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDosState } from "./atoms";
@@ -16,30 +16,38 @@ const Wrapper = styled.div`
 `;
 
 const Boards = styled.div`
-	display: grid;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
 	width: 100%;
-	grid-template-columns: repeat(1, 1fr);
 	gap: 10px;
-	grid-template-columns: repeat(3, 1fr);
 `;
 
 function App() {
 	const [toDos, setTodos] = useRecoilState(toDosState);
-	const onDragEnd = ({ source, destination, draggableId }: any) => {
-		if (!destination) return;
-		// setTodos((oldToDos) => {
-		// 	const copyToDos = [...oldToDos];
-		// 	copyToDos.splice(source.index, 1);
-		// 	copyToDos.splice(destination.index, 0, draggableId);
-		// 	return copyToDos;
-		// });
+	// DropResult 로 정의된 타입을 통해 해당 요소의 정보를 획득할 수 있다.
+	const onDragEnd = (info: DropResult) => {
+		console.log(info);
+		const { draggableId, source, destination } = info;
+		// 시작지점 === 도착지점
+		if (destination?.droppableId === source.droppableId) {
+			// ✅ sam board movement
+			setTodos((allBoards) => {
+				const boardCopy = [...allBoards[source.droppableId]]; // [toDo, doing, done]
+				boardCopy.splice(source.index, 1);
+				boardCopy.splice(destination.index, 0, draggableId);
+				return {
+					...allBoards,
+					[source.droppableId]: boardCopy,
+				};
+			});
+		}
 	};
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<Wrapper>
 				<Boards>
-					{/* ✅ */}
 					{Object.keys(toDos).map((boardId) => (
 						<Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
 					))}

@@ -61,8 +61,6 @@ Drag가 끝났을 때 실행되는 함수로 arguments 를 통해 해당 요소�
 해당 컴포넌트 내부 Props의 변화가 발생한 경우에만 렌더링하도록 하는 기능
 (Props의 변화가 없는 경우에도 진행되는 불필요한 리렌더링을 방지)
 
----
-
 ### `Object`
 
 객체 내부의 값을 순환(Loop)시키는 기능을 사용하는 방법
@@ -79,4 +77,18 @@ interface I {
   [key: string]: string[];
   // 문자열로 key 를 담은 배열 : 문자열 값으로 이루어진 배열
 }
+```
+
+---
+
+**객체 → 배열로 복사**
+
+```
+// 객체 형태의 내부 값들을 key 별로 구분
+[...allBoard[source.droppableId]
+[...allBoard["toDo" | "doing" | "done"]] ← keys
+
+// 객체 형태로 반환
+...allBoards,
+[source.droppableId]: boardCopy(수정된배열)
 ```
