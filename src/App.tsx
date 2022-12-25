@@ -25,13 +25,14 @@ const Boards = styled.div`
 
 function App() {
 	const [toDos, setTodos] = useRecoilState(toDosState);
-	// DropResult 로 정의된 타입을 통해 해당 요소의 정보를 획득할 수 있다.
 	const onDragEnd = (info: DropResult) => {
 		console.log(info);
+
 		const { draggableId, source, destination } = info;
-		// 시작지점 === 도착지점
+		if (!destination?.droppableId) return;
+
+		// 🔻 Sam board movement
 		if (destination?.droppableId === source.droppableId) {
-			// ✅ sam board movement
 			setTodos((allBoards) => {
 				const boardCopy = [...allBoards[source.droppableId]]; // [toDo, doing, done]
 				boardCopy.splice(source.index, 1);
@@ -39,6 +40,20 @@ function App() {
 				return {
 					...allBoards,
 					[source.droppableId]: boardCopy,
+				};
+			});
+		}
+		// 🔻 Cross Board Movement
+		if (destination.droppableId !== source.droppableId) {
+			setTodos((allBoards) => {
+				const sourceBoard = [...allBoards[source.droppableId]];
+				const destinationBoard = [...allBoards[destination.droppableId]];
+				sourceBoard.splice(source.index, 1);
+				destinationBoard.splice(destination.index, 0, draggableId);
+				return {
+					...allBoards,
+					[source.droppableId]: sourceBoard,
+					[destination.droppableId]: destinationBoard,
 				};
 			});
 		}

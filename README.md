@@ -79,8 +79,6 @@ interface I {
 }
 ```
 
----
-
 **객체 → 배열로 복사**
 
 ```
@@ -92,3 +90,13 @@ interface I {
 ...allBoards,
 [source.droppableId]: boardCopy(수정된배열)
 ```
+
+---
+
+**source, destination**
+
+-   sourceBoard : 요소의 시작(출발) 정보를 담은 변수
+-   destinationBoard : 요소의 도착 정보를 담은 변수
+-   1. 시작정보를 담은 배열의 요소를 제거
+-   2. 도착정보를 담은 배열에 요소를 추가
+-   3. 상태(allBoards) 복사하고 수정된 시작&도착 상태를 **[key]:value** 형태로 추가
