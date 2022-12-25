@@ -91,8 +91,6 @@ interface I {
 [source.droppableId]: boardCopy(수정된배열)
 ```
 
----
-
 **source, destination**
 
 -   sourceBoard : 요소의 시작(출발) 정보를 담은 변수
@@ -100,3 +98,21 @@ interface I {
 -   1. 시작정보를 담은 배열의 요소를 제거
 -   2. 도착정보를 담은 배열에 요소를 추가
 -   3. 상태(allBoards) 복사하고 수정된 시작&도착 상태를 **[key]:value** 형태로 추가
+
+---
+
+### `DroppableStateSnapshot`
+
+droppable 영역을 확장하고, snapshot의 정보를 인자로 받아 구현할 수 있는 기능들
+
+-   **isDraggingOver: boolean**
+    현재 선택한 Draggable이 특정 Droppable위에 드래깅 되고 있는지 여부 확인
+
+-   **draggingOverWith: ?DraggableId**
+    Droppable 위로 드래그하는 Draggable ID
+
+-   **draggingFromThisWith: ?DraggableId**
+    현재 Droppable에서 벗어난 드래깅되고 있는 Draggable ID
+
+-   **isUsingPlaceholder: boolean**
+    placeholder가 사용되고 있는지 여부
