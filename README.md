@@ -56,9 +56,27 @@ Drag가 끝났을 때 실행되는 함수로 arguments 를 통해 해당 요소�
 
 **draggable** : draggable 컴포넌트의 key와 index 는 동일해야 한다.
 
----
-
 ### `React.memo`
 
 해당 컴포넌트 내부 Props의 변화가 발생한 경우에만 렌더링하도록 하는 기능
 (Props의 변화가 없는 경우에도 진행되는 불필요한 리렌더링을 방지)
+
+---
+
+### `Object`
+
+객체 내부의 값을 순환(Loop)시키는 기능을 사용하는 방법
+
+-   Object.keys() : 객체의 index를 반환
+-   Object.values() : 객체의 value를 반환
+
+### `My Notes`
+
+**interface** : 이 프로젝트에서 객체 형태의 내부값을 타입하기
+
+```
+interface I {
+  [key: string]: string[];
+  // 문자열로 key 를 담은 배열 : 문자열 값으로 이루어진 배열
+}
+```

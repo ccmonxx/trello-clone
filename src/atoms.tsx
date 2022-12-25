@@ -1,6 +1,17 @@
 import { atom } from "recoil";
 
-export const toDosState = atom({
+// 2. 객체형태의 상태를 type하기
+interface IToDosState {
+	[key: string]: string[];
+}
+
+export const toDosState = atom<IToDosState>({
 	key: "toDo",
-	default: ["a", "b", "c", "d", "e", "f"],
+	// 1. state를 객체 형태로 변환
+	// default: ["a", "b", "c", "d", "e", "f"],
+	default: {
+		to_do: ["a", "b"],
+		doing: ["c", "d"],
+		done: ["e", "f"],
+	},
 });
