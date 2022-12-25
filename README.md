@@ -32,3 +32,12 @@ dnd 기능이 적용되는 범위의 가장 상위 컴포넌트
 
 Draggable 컴포넌트를 움직일 때 Droppable 컴포넌트의 크기변화(작아짐)를 방지
 provided의 placeholder를 객체형태로 컴포넌트 내부 가장 아래 위치에 넣어준다.
+
+---
+
+### `OnDragEnd`
+
+Drag가 끝났을 때 실행되는 함수로 arguments 를 통해 해당 요소의 정보를 객체 형태로 얻을 수 있다.
+
+-   source: 요소의 시작지점에 대한 정보
+-   destination: 도착지점에 대한 정보
