@@ -40,8 +40,6 @@ Drag가 끝났을 때 실행되는 함수로 arguments 를 통해 해당 요소�
 -   source: 요소의 시작지점에 대한 정보
 -   destination: 도착지점에 대한 정보
 
----
-
 **Splice** : Array를 수정하기 위한 기능
 
 -   형태1: array.splice(시작지점, 삭제갯수)
@@ -57,3 +55,10 @@ Drag가 끝났을 때 실행되는 함수로 arguments 를 통해 해당 요소�
 -   문법형태 → [...name]
 
 **draggable** : draggable 컴포넌트의 key와 index 는 동일해야 한다.
+
+---
+
+### `React.memo`
+
+해당 컴포넌트 내부 Props의 변화가 발생한 경우에만 렌더링하도록 하는 기능
+(Props의 변화가 없는 경우에도 진행되는 불필요한 리렌더링을 방지)
