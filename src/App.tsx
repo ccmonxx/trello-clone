@@ -37,10 +37,23 @@ const Card = styled.div`
 
 function App() {
 	const [toDos, setTodos] = useRecoilState(toDosState);
-	const onDragEnd = ({ source, destination }: any) => {
+	const onDragEnd = ({ source, destination, draggableId }: any) => {
 		console.log(`시작정보`, source);
 		console.log(`도착정보`, destination);
+		console.log(`요소정보`, draggableId);
+
+		setTodos((oldToDos) => {
+			const copyToDos = [...oldToDos];
+			// 1. 선택된(드래그) 아이템을 삭제한다.
+			copyToDos.splice(source.index, 1);
+			// 2.삭제한 아이템을 도착지점에 넣는다.
+			copyToDos.splice(destination.index, 0, draggableId);
+			return copyToDos;
+		});
+
+		console.log(`최종수정`, toDos);
 	};
+
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<Wrapper>
@@ -49,7 +62,7 @@ function App() {
 						{(magic) => (
 							<Board ref={magic.innerRef} {...magic.droppableProps}>
 								{toDos.map((toDo, index) => (
-									<Draggable draggableId={toDo} index={index} key={index}>
+									<Draggable draggableId={toDo} index={index} key={toDo}>
 										{(magic) => (
 											<Card
 												ref={magic.innerRef}
