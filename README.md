@@ -99,8 +99,6 @@ interface I {
 -   2. 도착정보를 담은 배열에 요소를 추가
 -   3. 상태(allBoards) 복사하고 수정된 시작&도착 상태를 **[key]:value** 형태로 추가
 
----
-
 ### `DroppableStateSnapshot`
 
 droppable 영역을 확장하고, snapshot의 정보를 인자로 받아 구현할 수 있는 기능들
@@ -116,3 +114,7 @@ droppable 영역을 확장하고, snapshot의 정보를 인자로 받아 구현�
 
 -   **isUsingPlaceholder: boolean**
     placeholder가 사용되고 있는지 여부
+
+---
+
+### Styles
