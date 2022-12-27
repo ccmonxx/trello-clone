@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 // useForm을 통해 받은 toDo 객체를 담을 예정
 // toDo → [ {id: 1, text: "A"} ]
-interface IToDo {
+export interface IToDo {
 	id: number;
 	text: string;
 }

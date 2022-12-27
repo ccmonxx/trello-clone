@@ -2,6 +2,8 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import DraggableCard from "./DraggableCard";
 import { useForm } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
+import { IToDo, toDosState } from "../atoms";
 
 const Wrapper = styled.div`
 	display: flex;
@@ -44,7 +46,7 @@ interface IArea {
 
 interface IBoard {
 	// toDo객체로 이루어진 배열
-	toDos: string[];
+	toDos: IToDo[];
 	boardId: string;
 }
 
@@ -53,9 +55,19 @@ interface IForm {
 }
 
 function Board({ toDos, boardId }: IBoard) {
+	const setToDos = useSetRecoilState(toDosState);
 	const { register, handleSubmit, setValue } = useForm<IForm>();
-	// toDo 라는 객체 안에 string type
 	const onValid = ({ toDo }: IForm) => {
+		const newToDo = {
+			id: Date.now(),
+			text: toDo,
+		};
+		setToDos((allBoards) => {
+			return {
+				...allBoards,
+				[boardId]: [newToDo, ...allBoards[boardId]],
+			};
+		});
 		setValue("toDo", "");
 	};
 
@@ -63,7 +75,7 @@ function Board({ toDos, boardId }: IBoard) {
 		<Wrapper>
 			<Title>{boardId}</Title>
 
-			<Form>
+			<Form onSubmit={handleSubmit(onValid)}>
 				<input
 					{...register("toDo", { required: true })}
 					type="text"
