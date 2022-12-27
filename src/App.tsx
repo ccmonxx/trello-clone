@@ -3,7 +3,7 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDosState } from "./atoms";
-import Board from "./Board";
+import Board from "./components/Board";
 
 const Wrapper = styled.div`
 	display: flex;

@@ -117,4 +117,8 @@ droppable 영역을 확장하고, snapshot의 정보를 인자로 받아 구현�
 
 ---
 
-### Styles
+### `UseRef`
+
+React 코드를 이용해서 HTML요소를 초기화 하거나, 가져올 수 있는 방법
+
+useRef 함수는 current 속성을 가지고 있는 객체를 반환하며, 인자로 받은 초기값을 current 속성에 할당받으며 이 값은 다시 렌더링 되어도 유지된다
