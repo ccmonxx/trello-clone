@@ -1,7 +1,7 @@
-import { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import DraggableCard from "./DraggableCard";
+import { useForm } from "react-hook-form";
 
 const Wrapper = styled.div`
 	display: flex;
@@ -30,6 +30,13 @@ const Area = styled.div<IArea>`
 	padding: 20px;
 `;
 
+const Form = styled.form`
+	width: 100%;
+	input {
+		width: 100%;
+	}
+`;
+
 interface IArea {
 	isDraggingOver: boolean;
 	isDraggingFromThis: boolean;
@@ -41,20 +48,29 @@ interface IBoard {
 	boardId: string;
 }
 
+interface IForm {
+	toDo: string;
+}
+
 function Board({ toDos, boardId }: IBoard) {
-	const inputRef = useRef<HTMLInputElement>(null);
-	const onClick = () => {
-		inputRef.current?.focus();
-		setTimeout(() => {
-			inputRef.current?.blur();
-		}, 5000);
+	const { register, handleSubmit, setValue } = useForm<IForm>();
+	// toDo 라는 객체 안에 string type
+	const onValid = ({ toDo }: IForm) => {
+		setValue("toDo", "");
 	};
 
 	return (
 		<Wrapper>
 			<Title>{boardId}</Title>
-			<input ref={inputRef} placeholder="Grab Me" />
-			<button onClick={onClick}>Click Me</button>
+
+			<Form>
+				<input
+					{...register("toDo", { required: true })}
+					type="text"
+					placeholder={`Add task on ${boardId}`}
+				/>
+			</Form>
+
 			<Droppable droppableId={boardId}>
 				{(magic, snapshot) => (
 					<Area
@@ -64,7 +80,12 @@ function Board({ toDos, boardId }: IBoard) {
 						isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
 					>
 						{toDos.map((toDo, index) => (
-							<DraggableCard key={toDo} index={index} toDo={toDo} />
+							<DraggableCard
+								key={toDo.id}
+								index={index}
+								toDoId={toDo.id}
+								toDoText={toDo.text}
+							/>
 						))}
 						{magic.placeholder}
 					</Area>

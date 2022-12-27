@@ -115,10 +115,28 @@ droppable 영역을 확장하고, snapshot의 정보를 인자로 받아 구현�
 -   **isUsingPlaceholder: boolean**
     placeholder가 사용되고 있는지 여부
 
----
-
 ### `UseRef`
 
 React 코드를 이용해서 HTML요소를 초기화 하거나, 가져올 수 있는 방법
 
 useRef 함수는 current 속성을 가지고 있는 객체를 반환하며, 인자로 받은 초기값을 current 속성에 할당받으며 이 값은 다시 렌더링 되어도 유지된다
+
+---
+
+### `React-hook-form`
+
+React 내에서 Form을 쉽게 제어하고 유효성 검사를 처리하도록 도와주는 라이브러리
+기존 Form에서 입력 필드처리 키워드 value, onChange 를 추가 할 필요가 없다.
+state도 직접관리 X
+
+-   useForm() : React-Hook-Form에서 Form작업을 위해 제공하는 hook
+-   register : ref로 사용되는 함수로 입력 필드를 React Hook Form에 등록, 변경값을 추척
+-   handleSubmit : form을 서버로 제출하는 함수
+
+```
+const { register, handleSubmit } = useForm();
+const onValid = (data) => { console.log(data) }
+<form onSubmit={handleSubmit(onValid)}>
+    <input ref={register} name="name" />
+</form>
+```
